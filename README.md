@@ -1,5 +1,5 @@
 # api-20v-flask
 
-'virtualenv .venv'
-'.\.venv\Scripts\Activate.ps1'
-'pip install -r requirements.txt'
+1. 'virtualenv .venv'
+2. '.\.venv\Scripts\Activate.ps1'
+3. 'pip install -r requirements.txt'
