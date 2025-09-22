@@ -1,2 +1,5 @@
 # api-20v-flask
-web con flask
+
+'virtualenv .venv'
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
