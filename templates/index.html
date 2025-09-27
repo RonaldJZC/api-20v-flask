@@ -1,23 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Hola, Mundo!</h1>
-    <p>Bienvenido a mi página web.</p>
-    <p>Este es un ejemplo de una página web creada con Flask.</p>
-    <p>Puedes encontrar más información sobre Flask en la documentación oficial: <a href="https://flask.palletsprojects.com/en/2.0.x/">https://flask.palletsprojects.com/en/2.0.x/</a></p>
-    <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en preguntar.</p>
-    <p>¡Disfruta de tu viaje!</p>
-    <p>¡Buena suerte!</p>
-    <p>¡Feliz día!</p>
-    <p>¡Buenas tardes!</p>
-    <p>¡Buenas noches!</p>
-    <ul>
-        <li>{{ numero_1 }}</li>
-    </ul>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Página de Inicio{% endblock %}
+
+{% block content %}
+    <h2>Esta es la página de {{ name_page }}</h2>
+    <p>Hola, causa! Bienvenido a la aplicación 😎</p>
+{% endblock %}
