@@ -11,17 +11,23 @@
                 <th>Created</th>
                 <th>Title</th>
                 <th>Content</th>
+                <th>Edit</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody hx-confirm="Are you sure?" hx-target="closest tr" hx-swap="outerHTML swap:1s">
             {% for post in posts_list %}
             <tr>
-                <td>{{ post['id'] }}</td>
+                <td><a href={{ url_for("post_detail", post_id=post['id']) }}>{{ post['id'] }}</a></td>
                 <td>{{ post['created'] }}</td>
                 <td>{{ post['title'] }}</td>
                 <td>{{ post['content'] }}</td>
+                <td><a class="btn btn-secondary" href={{ url_for("edit_post", post_id=post['id']) }}>Edit</a></td>
+                <td>
+                    <button class="btn btn-danger btn-sm" hx-delete="/posts/delete/{{ post['id'] }}">Borrar</button>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+<a class="btn btn-primary" href={{ url_for("create_post") }}>Crear un post</a>
 {% endblock %}

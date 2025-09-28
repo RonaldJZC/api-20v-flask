@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Detalles del post{% endblock %}
+{% block content %}
+<h1>Detalles del post</h1>
+<p><strong>Título:</strong> {{ post['title'] }}</p>
+<p><strong>Contenido:</strong> {{ post['content'] }}</p>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Update{% endblock %}
+{% block content %}
+<h1>Actualizar un post</h1>
+<form action="/posts/edit/{{ post['id'] }}" method="post">
+    <div>
+        <label for="title">Título:</label>
+        <input type="text" id="title" name="title" value="{{ post['title'] }}" required>
+    </div>
+    <div>
+        <label for="content">Contenido:</label>
+        <textarea id="content" name="content" required>{{ post['content'] }}</textarea>
+    </div>
+    <button type="submit">Actualizar</button>
+</form>
+{% endblock %}
