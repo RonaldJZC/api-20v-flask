@@ -27,6 +27,13 @@ def about():
     name_page = "about"
     return render_template("about.html", name_page=name_page)
 
+@app.route("/posts", methods=["GET"]) # requiere GET, que es la método de solicitud
+def posts():
+    c = get_db_connection()
+    posts=(c.execute("SELECT * FROM posts").fetchall())
+    c.close()
+    return render_template("home.html", posts_list=posts)
+
 # ejecutar la aplicación
 if __name__ == "__main__":
     app.run(debug=True)
