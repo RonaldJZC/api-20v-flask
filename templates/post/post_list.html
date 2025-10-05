@@ -8,10 +8,11 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Created</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Edit</th>
+                <th>Creador</th>
+                <th>Titulo</th>
+                <th>Contenido</th>
+                <th>Acciones</th>
+                <th>Borrar</th>   
             </tr>
         </thead>
         <tbody hx-confirm="Are you sure?" hx-target="closest tr" hx-swap="outerHTML swap:1s">
@@ -23,7 +24,7 @@
                 <td>{{ post['content'] }}</td>
                 <td><a class="btn btn-secondary" href={{ url_for("edit_post", post_id=post['id']) }}>Edit</a></td>
                 <td>
-                    <button class="btn btn-danger btn-sm" hx-delete="/posts/delete/{{ post['id'] }}">Borrar</button>
+                    <button class="btn btn-danger" hx-delete="/posts/delete/{{ post['id'] }}">Borrar</button>
                 </td>
             </tr>
             {% endfor %}

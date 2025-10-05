@@ -1,9 +1,86 @@
 {% extends "base.html" %}
+{% block title %}Post #{{ post['id'] }}{% endblock %}
 
-{% block title %}Detalles del post{% endblock %}
 {% block content %}
-<h1>Detalles del post</h1>
-<p><strong>Título:</strong> {{ post['title'] }}</p>
-<p><strong>Contenido:</strong> {{ post['content'] }}</p>
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <a class="btn btn-outline-secondary btn-sm" href="{{ url_for('posts') }}">← Volver</a>
+        <span class="badge text-bg-secondary">#{{ post['id'] }}</span>
+        <span class="badge text-bg-info">
+          {{ post['created'] }}
+        </span>
+      </div>
 
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <h1 class="h3 mb-3">{{ post['title'] }}</h1>
+          <p class="text-secondary small mb-4">Publicado: {{ post['created'] }}</p>
+
+          <div class="mb-4" style="white-space: pre-wrap;">
+            {{ post['content'] }}
+          </div>
+
+          <div class="d-flex gap-2">
+            <a class="btn btn-primary"
+               href="{{ url_for('edit_post', post_id=post['id']) }}">
+              Editar
+            </a>
+
+            <!-- Botón que abre modal de confirmación -->
+            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+              Borrar
+            </button>
+
+            <a class="btn btn-outline-secondary" href="{{ url_for('posts') }}">
+              Ver todos
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-center text-muted mt-4 small">Hecho con Flask — Blog</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmación -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        ¿Seguro que deseas borrar <strong>#{{ post['id'] }}</strong>? Esta acción no se puede deshacer.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button id="btn-confirm-delete" type="button" class="btn btn-danger">
+          Sí, borrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Enviar DELETE al endpoint y redirigir a /posts
+  document.getElementById('btn-confirm-delete').addEventListener('click', async () => {
+    try {
+      const res = await fetch('{{ url_for("delete_post", post_id=post["id"]) }}', {
+        method: 'DELETE'
+      });
+      if (res.ok) {
+        window.location = '{{ url_for("posts") }}';
+      } else {
+        alert('No se pudo eliminar. Intenta de nuevo.');
+      }
+    } catch (e) {
+      alert('Error de red: ' + e.message);
+    }
+  });
+</script>
 {% endblock %}
