@@ -1,17 +1,69 @@
 {% extends "base.html" %}
 
-{% block title %}Update{% endblock %}
+{% block title %}Actualizar post{% endblock %}
+
 {% block content %}
-<h1>Actualizar un post</h1>
-<form action="/posts/edit/{{ post['id'] }}" method="post">
-    <div>
-        <label for="title">Título:</label>
-        <input type="text" id="title" name="title" value="{{ post['title'] }}" required>
-    </div>
-    <div>
-        <label for="content">Contenido:</label>
-        <textarea id="content" name="content" required>{{ post['content'] }}</textarea>
-    </div>
-    <button type="submit">Actualizar</button>
-</form>
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <h1 class="h3 mb-4">Actualizar un post</h1>
+
+          <form action="{{ url_for('edit_post', post_id=post['id']) }}" method="post" id="edit-form" novalidate>
+            <div class="mb-3">
+              <label for="title" class="form-label">Título</label>
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                value="{{ post['title'] }}"
+                required
+                minlength="3"
+                maxlength="120"
+                placeholder="Escribe un título claro">
+              <div class="invalid-feedback">El título es obligatorio (mín. 3 caracteres).</div>
+            </div>
+
+            <div class="mb-3">
+              <label for="content" class="form-label">Contenido</label>
+              <textarea
+                class="form-control"
+                id="content"
+                name="content"
+                rows="6"
+                required
+                minlength="3"
+                placeholder="Comparte el contenido del post">{{ post['content'] }}</textarea>
+              <div class="invalid-feedback">El contenido es obligatorio (mín. 3 caracteres).</div>
+            </div>
+
+            <div class="d-flex gap-2">
+              <button type="submit" class="btn btn-primary">Actualizar</button>
+              <a class="btn btn-outline-secondary" href="{{ url_for('post_detail', post_id=post['id']) }}">Cancelar</a>
+            </div>
+          </form>
+        </div>
+  </div>
+</div>
+
+<script>
+  // Validación simple del lado del cliente (evita solo espacios)
+  (function () {
+    const form = document.getElementById('edit-form');
+    form.addEventListener('submit', function (e) {
+      const title = document.getElementById('title');
+      const content = document.getElementById('content');
+      if (!title.value.trim() || !content.value.trim()) {
+        e.preventDefault();
+        if (!title.value.trim()) title.classList.add('is-invalid');
+        if (!content.value.trim()) content.classList.add('is-invalid');
+        return;
+      }
+      title.classList.remove('is-invalid');
+      content.classList.remove('is-invalid');
+    });
+  })();
+</script>
 {% endblock %}

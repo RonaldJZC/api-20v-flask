@@ -3,6 +3,92 @@
 {% block title %}Acerca de{% endblock %}
 
 {% block content %}
-    <h2>{{ name_page }}</h2>
-    <p>Bienvenido a la página Acerca de</p>
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4 align-items-center">
+      <!-- Hero -->
+      <div class="col-md-7">
+        <div class="p-4 p-lg-5 rounded-4" style="background:linear-gradient(135deg,#6f42c1,#0d6efd);color:#fff">
+          <h1 class="display-5 fw-bold mb-3">Acerca de</h1>
+          <p class="lead mb-4">
+            Micro-blog hecho con <strong>Flask + SQLite</strong>. Simplicidad, performance y UX sin peso extra.
+          </p>
+          <div class="d-flex gap-2">
+            <a href="{{ url_for('posts') }}" class="btn btn-light btn-lg">Ver posts</a>
+            <a href="{{ url_for('create_post') }}" class="btn btn-outline-light btn-lg">Crear post</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Perfil/stack -->
+      <div class="col-md-5">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <img src="{{ url_for('static', filename='avatar.webp') }}"
+                   alt="Avatar" width="72" height="72"
+                   class="rounded-circle me-3 border" loading="lazy"
+                   onerror="this.style.display='none'">
+              <div>
+                <h5 class="mb-0">{{ author or "Tu nombre" }}</h5>
+                <small class="text-secondary">Desarrollador • Perú</small>
+              </div>
+            </div>
+
+            <div class="small text-secondary">
+              <p class="mb-2">Stack favorito:</p>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="badge text-bg-primary">Python</span>
+                <span class="badge text-bg-dark">Flask</span>
+                <span class="badge text-bg-success">SQLite</span>
+                <span class="badge text-bg-info">HTMX</span>
+                <span class="badge text-bg-warning text-dark">Bootstrap 5</span>
+              </div>
+              <hr>
+              <ul class="list-unstyled mb-0">
+                <li class="mb-1">📦 <strong>{{ posts_count }}</strong> posts guardados</li>
+                <li class="mb-1">⚡ Render del servidor + cache del navegador</li>
+                <li class="mb-1">🖼️ Imágenes con <code>loading="lazy"</code></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info técnica / performance -->
+    <div class="row g-4 mt-1">
+      <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title">Objetivo del proyecto</h5>
+            <p class="card-text text-secondary">
+              CRUD limpio, rutas claras, formularios, mensajes <em>flash</em> y UX ligera.
+            </p>
+            <ul class="small text-secondary">
+              <li>Rutas: <code>/posts</code>, <code>/posts/create</code>, <code>/posts/&lt;id&gt;</code>, etc.</li>
+              <li>Validación simple en servidor.</li>
+              <li>Consultas parametrizadas en SQLite.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title">Buenas prácticas de performance</h5>
+            <ul class="small text-secondary mb-0">
+              <li>CDN para Bootstrap (HTTP/2 + cache compartida).</li>
+              <li>CSS propio consolidado en <code>styles.css</code>.</li>
+              <li>JS en un bundle (<code>bootstrap.bundle.min.js</code>) y sin dependencias pesadas.</li>
+              <li>Componentes sencillos → menos reflows.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
 {% endblock %}

@@ -3,6 +3,53 @@
 {% block title %}Página de Inicio{% endblock %}
 
 {% block content %}
-    <h2>Esta es la página de {{ name_page }}</h2>
-    <p>Hola, causa! Bienvenido a la aplicación 😎</p>
+<section class="rounded-4 p-5 mb-4 gradient-hero text-white">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-8">
+      <h1 class="display-5 fw-bold mb-3">¡Bienvenido a mi Blog!</h1>
+      <p class="lead mb-4">
+        Esta es la página de <strong>{{ name_page }}</strong>. Aquí encontrarás
+        notas rápidas, experimentos y aprendizajes. Ponte cómodo 😎.
+      </p>
+      <a class="btn btn-light btn-lg me-2" href="{{ url_for('posts') }}">
+        Ver posts
+      </a>
+      <a class="btn btn-outline-light btn-lg" href="{{ url_for('create_post') }}">
+        Crear post
+      </a>
+    </div>
+    <div class="col-lg-4 text-center d-none d-lg-block">
+      <span class="display-1">📝</span>
+    </div>
+  </div>
+</section>
+
+<!-- Últimos posts -->
+<section>
+  <div class="d-flex align-items-center mb-3">
+    <h2 class="h4 m-0">Últimos posts</h2>
+    <a class="ms-auto small text-decoration-none" href="{{ url_for('posts') }}">ver todos →</a>
+  </div>
+
+  {% if posts_recent and posts_recent|length > 0 %}
+    <div class="row g-3">
+      {% for p in posts_recent %}
+        <div class="col-md-4">
+          <div class="card h-100 hover-card">
+            <div class="card-body">
+              <h3 class="h5 card-title mb-2">{{ p['title'] }}</h3>
+              <p class="card-text text-secondary">{{ p['excerpt'] }}{% if p['excerpt'] and p['excerpt']|length >= 120 %}…{% endif %}</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pt-0">
+              <a href="{{ url_for('post_detail', post_id=p['id']) }}" class="btn btn-primary btn-sm">Leer</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info mb-0">Aún no hay posts. ¡Crea el primero! 👇</div>
+  {% endif %}
+</section>
+
 {% endblock %}
